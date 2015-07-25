@@ -29,12 +29,11 @@ function generateBoard(board, canvas) {
 		});
 	});
 
-	console.log(jenova.compress(board));
-
 	// Finally Generate a new board, with a callback to redraw it
 	jenova.next(board, function(newBoard) {
 		setTimeout(generateBoard.bind(this, newBoard, canvas), 200);
 	});
 }
 
+// TODO: change window.requestAnimationFrame to websocket events
 window.requestAnimationFrame(generateBoard.bind(this, initialBoard, document.getElementById('gameOfLife')));

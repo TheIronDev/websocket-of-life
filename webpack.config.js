@@ -2,13 +2,15 @@ var path = require('path');
 
 module.exports = {
 	context: path.resolve('public/javascripts'),
-	entry: './app.js',
+	entry: {
+		client: './client.js',
+		server: './server.js'
+	},
 	output: {
-		filename: 'public/javascripts/bundle.js'
+		path: 'public/javascripts/bundles/',
+		filename: '[name].js'
 	},
 	module: {
-		loaders: [
-
-		]
+		loaders: []
 	}
 };

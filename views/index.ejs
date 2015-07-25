@@ -6,7 +6,11 @@
   </head>
   <body>
     <h1>WebSockets of Life</h1>
-    <canvas id="gameOfLife"></canvas>
-    <script src="/javascripts/bundle.js"></script>
+    <p>This is a proof of concept build of conway's game of life made using websockets.</p>
+    <p>The server calculates and generates the next board, and the client draws whatever the server tells it to.</p>
+
+    <canvas id="gameOfLife" class="GoL_full"></canvas>
+
+    <script src="/javascripts/bundles/server.js"></script>
   </body>
 </html>

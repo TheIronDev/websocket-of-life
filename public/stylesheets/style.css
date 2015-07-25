@@ -1,8 +1,20 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+* {
+    box-sizing: border-box;
 }
 
-a {
-  color: #00B7FF;
+body {
+  padding: 50px;
+  font: 14px Helvetica, Arial, sans-serif;
+}
+
+a {color: #00B7FF;}
+
+h1,
+p {text-align: center;}
+
+.GoL_full {
+    display: block;
+    max-width: 800px;
+    width: 100%;
+    margin: 2em auto;
 }
