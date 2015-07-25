@@ -1,3 +1,7 @@
+/**
+ * In the client example, this file is responsible for drawing the current board and generating the next
+ * @type {exports}
+ */
 
 // Using WebPack to load in our game of life module
 var jenova = require("jenova");

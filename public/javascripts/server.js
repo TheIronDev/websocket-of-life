@@ -1,16 +1,10 @@
+/**
+ * In the server example, the only responsibility this file has is drawing the game of life boards
+ */
 
-// Using WebPack
 var jenova = require("jenova");
-
-var initialBoard = [
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 1, 0, 0, 0, 0, 0],
-	[0, 0, 1, 1, 0, 0, 0],
-	[0, 1, 1, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0]
-];
+var socket = io.connect('http://localhost:3001');
+var gameOfLifeCanvas = document.getElementById('gameOfLife');
 
 function generateBoard(board, canvas) {
 
@@ -28,12 +22,11 @@ function generateBoard(board, canvas) {
 			ctx.strokeRect(colIndex*cellWidth, rowIndex*cellHeight, cellWidth, cellHeight);
 		});
 	});
-
-	// Finally Generate a new board, with a callback to redraw it
-	jenova.next(board, function(newBoard) {
-		setTimeout(generateBoard.bind(this, newBoard, canvas), 200);
-	});
 }
 
-// TODO: change window.requestAnimationFrame to websocket events
-window.requestAnimationFrame(generateBoard.bind(this, initialBoard, document.getElementById('gameOfLife')));
+
+// Whenever the server emits a new board, lets decompress it and draw it
+socket.on('newBoard', function (compressedBoard) {
+	var newBoard = jenova.expand(compressedBoard.compressed, compressedBoard.height, compressedBoard.width);
+	generateBoard(newBoard, gameOfLifeCanvas)
+});
