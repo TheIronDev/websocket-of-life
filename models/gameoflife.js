@@ -1,6 +1,6 @@
 
-var jenova = require('jenova');
-var io = require('socket.io')(3001);
+var jenova = require('jenova'),
+	ioInstance;
 
 
 var initialBoard = [
@@ -16,11 +16,12 @@ var initialBoard = [
 function generateBoard(board) {
 
 	jenova.next(board, function(newBoard) {
-		io.emit('newBoard', jenova.compress(newBoard));
+		ioInstance.emit('newBoard', jenova.compress(newBoard));
 		setTimeout(generateBoard.bind(this, newBoard), 1000);
 	});
 }
 
-module.exports = function () {
+module.exports = function (io) {
+	ioInstance = io;
 	generateBoard(initialBoard);
 };

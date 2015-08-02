@@ -3,7 +3,7 @@
  */
 
 var jenova = require("jenova");
-var socket = io.connect('http://localhost:3001');
+var socket = io.connect('http://localhost:3000');
 var gameOfLifeCanvas = document.getElementById('gameOfLife');
 
 function generateBoard(board, canvas) {
@@ -27,6 +27,6 @@ function generateBoard(board, canvas) {
 
 // Whenever the server emits a new board, lets decompress it and draw it
 socket.on('newBoard', function (compressedBoard) {
-	var newBoard = jenova.expand(compressedBoard.compressed, compressedBoard.height, compressedBoard.width);
+	var newBoard = jenova.expand(compressedBoard.compressed, compressedBoard.width);
 	generateBoard(newBoard, gameOfLifeCanvas)
 });
