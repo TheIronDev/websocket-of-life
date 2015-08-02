@@ -3,7 +3,7 @@
  */
 
 var jenova = require("jenova");
-var socket = io.connect('http://localhost:3000');
+var socket = io.connect('');
 var gameOfLifeCanvas = document.getElementById('gameOfLife');
 
 function generateBoard(board, canvas) {
