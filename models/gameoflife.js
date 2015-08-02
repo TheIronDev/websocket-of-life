@@ -37,8 +37,8 @@ function generateBoard(board) {
 function safetyFirst(data) {
 	var col = data.col,
 		row = data.row;
-	if (data && col && row &&
-		typeof col === 'number' &&  typeof row === 'number' &&
+
+	if (data && typeof col === 'number' &&  typeof row === 'number' &&
 		col <= initialBoard[0].length && row <= initialBoard.length) {
 		return true;
 	}
