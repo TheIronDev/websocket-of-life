@@ -29,12 +29,37 @@ function generateBoard (board, ctx, width, height, callback) {
 /**
  * Setup default canvas styles
  */
-function setupCanvas(ctx) {
+function setupCanvas(canvas, ctx, onClick) {
 	ctx.lineWidth = 1;
 	ctx.strokeStyle = "#ccc";
+
+	if (onClick) {
+		canvas.addEventListener('click', onClick);
+	}
+}
+
+
+function getClickedCell(event, board, cellWidth, cellHeight) {
+
+	var canvas = event.target,
+
+		leftOffSet = canvas.offsetLeft,
+		topOffset = canvas.offsetTop,
+
+		leftClickPoint = event.pageX,
+		topClickPoint = event.pageY,
+
+		x = leftClickPoint - leftOffSet,
+		y = topClickPoint - topOffset;
+
+	return {
+		col: ~~(x/cellWidth),
+		row: ~~(y/cellHeight)
+	};
 }
 
 module.exports = {
+	getClickedCell: getClickedCell,
 	setupCanvas: setupCanvas,
 	generateBoard: generateBoard,
 	drawCell: drawCell
