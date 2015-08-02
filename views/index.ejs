@@ -9,8 +9,9 @@
     <p>This is a proof of concept build of conway's game of life made using websockets.</p>
     <p>The server calculates and generates the next board, and the client draws whatever the server tells it to.</p>
 
-    <canvas id="gameOfLife" class="GoL_full"></canvas>
+    <canvas id="gameOfLife" class="GoL_full" width="800" height="500"></canvas>
 
+    <!-- Exposing a global io variable -->
     <script src="/socket.io/socket.io.js"></script>
     <script src="/javascripts/bundles/server.js"></script>
   </body>

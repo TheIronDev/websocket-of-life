@@ -4,29 +4,17 @@
 
 var jenova = require("jenova");
 var socket = io.connect('');
-var gameOfLifeCanvas = document.getElementById('gameOfLife');
+var helpers = require('./canvasHelper');
 
-function generateBoard(board, canvas) {
+var canvas = document.getElementById('gameOfLife'),
+	ctx = canvas.getContext('2d'),
+	width = canvas.width,
+	height = canvas.height;
 
-	var ctx = canvas.getContext('2d'),
-		width = canvas.width,
-		height = canvas.height,
-		cellHeight = height/ board.length,
-		cellWidth = width / board[0].length;
-
-	// Loop through the board and draw each cell
-	board.forEach(function(row, rowIndex) {
-		row.forEach(function(col, colIndex) {
-			ctx.fillStyle = col ? '#ccc' : '#fff';
-			ctx.fillRect(colIndex*cellWidth, rowIndex*cellHeight, cellWidth, cellHeight);
-			ctx.strokeRect(colIndex*cellWidth, rowIndex*cellHeight, cellWidth, cellHeight);
-		});
-	});
-}
-
+helpers.setupCanvas(ctx);
 
 // Whenever the server emits a new board, lets decompress it and draw it
 socket.on('newBoard', function (compressedBoard) {
 	var newBoard = jenova.expand(compressedBoard.compressed, compressedBoard.width);
-	generateBoard(newBoard, gameOfLifeCanvas)
+	helpers.generateBoard(newBoard, ctx, width, height)
 });

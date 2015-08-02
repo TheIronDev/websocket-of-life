@@ -5,6 +5,13 @@
 
 // Using WebPack to load in our game of life module
 var jenova = require("jenova");
+var helpers = require('./canvasHelper');
+var canvas = document.getElementById('gameOfLife'),
+	ctx = canvas.getContext('2d'),
+	width = canvas.width,
+	height = canvas.height;
+
+helpers.setupCanvas(ctx);
 
 // The simple (client) version works off calculates the next game-of-life board on the browser.
 var initialBoard = [
@@ -17,28 +24,12 @@ var initialBoard = [
 	[0, 0, 0, 0, 0, 0, 0]
 ];
 
-// Helper function to generate a new board
-function generateBoard(board, canvas) {
-
-	var ctx = canvas.getContext('2d'),
-		width = canvas.width,
-		height = canvas.height,
-		cellHeight = height/ board.length,
-		cellWidth = width / board[0].length;
-
-	// Loop through the board and draw each cell
-	board.forEach(function(row, rowIndex) {
-		row.forEach(function(col, colIndex) {
-			ctx.fillStyle = col ? '#ccc' : '#fff';
-			ctx.fillRect(colIndex*cellWidth, rowIndex*cellHeight, cellWidth, cellHeight);
-			ctx.strokeRect(colIndex*cellWidth, rowIndex*cellHeight, cellWidth, cellHeight);
-		});
-	});
-
+// Once we have finished drawing a board, call *this* function to generate the next board.
+function generateBoardCallback(board) {
 	// Generate a new board, with a callback to recursively draw the next board available.
 	jenova.next(board, function(newBoard) {
-		setTimeout(generateBoard.bind(this, newBoard, canvas), 200);
+		setTimeout(helpers.generateBoard.bind(this, newBoard, ctx, width, height, generateBoardCallback), 200);
 	});
 }
 
-window.requestAnimationFrame(generateBoard.bind(this, initialBoard, document.getElementById('gameOfLife')));
+window.requestAnimationFrame(helpers.generateBoard.bind(this, initialBoard, ctx, width, height, generateBoardCallback));
