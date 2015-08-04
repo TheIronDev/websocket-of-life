@@ -9,8 +9,10 @@ body {
 
 a {color: #00B7FF;}
 
-h1,
-p {text-align: center;}
+header {text-align: center;}
+header a {color: #006702;transition: all .5s ease;text-decoration: none}
+header a:hover {color: #00B7FF;}
+h1 {display: inline;margin: 0 5px 0 64px;}
 
 .GoL_full {
     display: block;
