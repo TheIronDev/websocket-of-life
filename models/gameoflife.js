@@ -45,6 +45,10 @@ function safetyFirst(data) {
 	return false;
 }
 
+function broadcastChangedCell (data) {
+	ioInstance.emit('userModifiedCell', data);
+}
+
 module.exports = function (io) {
 
 	ioInstance = io;
@@ -53,6 +57,7 @@ module.exports = function (io) {
 		socket.on('updateCell', function(data) {
 			if (safetyFirst(data)) {
 				socketUpdates.push(data);
+				broadcastChangedCell(data);
 			}
 		});
 	});
