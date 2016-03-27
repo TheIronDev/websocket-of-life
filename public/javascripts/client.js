@@ -64,7 +64,7 @@ function generateBoardCallback(board) {
 	clickedCells = [];
 
 	// Generate a new board, with a callback to recursively draw the next board available.
-	jenova.next(board, function(newBoard) {
+	jenova.next(board, {}, function(newBoard) {
 		setTimeout(helpers.generateBoard.bind(this, newBoard, ctx, width, height, generateBoardCallback), 200);
 	});
 }

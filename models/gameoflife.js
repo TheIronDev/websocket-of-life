@@ -27,7 +27,7 @@ function generateBoard(board) {
 	});
 	socketUpdates = [];
 
-	jenova.next(board, function(newBoard) {
+	jenova.next(board, {}, function(newBoard) {
 		ioInstance.emit('newBoard', jenova.compress(newBoard));
 		setTimeout(generateBoard.bind(this, newBoard), 800);
 	});
