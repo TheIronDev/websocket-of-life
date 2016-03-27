@@ -7,8 +7,11 @@ module.exports = {
 		server: './server.js'
 	},
 	output: {
-		path: 'public/javascripts/bundles/',
+		path: path.resolve('./public/javascripts/bundles/'),
 		filename: '[name].js'
+	},
+	resolveLoaders: {
+		root: path.join(__dirname, 'node_modules')
 	},
 	module: {
 		loaders: []

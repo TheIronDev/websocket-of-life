@@ -9,6 +9,16 @@ var routes = require('./routes/index');
 
 var app = express();
 
+// Setup webpack dev middleware
+var webpackDevMiddleware = require('webpack-dev-middleware'),
+	webpack = require('webpack'),
+	webpackConfig = require('./webpack.config.js'),
+	compiler = webpack(webpackConfig);
+
+app.use(webpackDevMiddleware(compiler, {
+	publicPath: '/bundles'
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
